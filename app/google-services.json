@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "789233877775",
+    "project_id": "meme-berry",
+    "storage_bucket": "meme-berry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789233877775:android:50f2426940432394e8347a",
+        "android_client_info": {
+          "package_name": "com.marqueberry.memeberry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789233877775-1ue9schob0otgtchrhpauuf626pvvjfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAI3ajLwrAY5p-78AwfZ6EN-bZNU8YTQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789233877775-1ue9schob0otgtchrhpauuf626pvvjfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
