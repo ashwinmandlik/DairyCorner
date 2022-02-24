@@ -6,6 +6,11 @@
         <entry key="..\:/Android studio projects/MemeBerry/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Android studio projects/MemeBerry/app/src/main/res/layout/fragment_auth.xml" value="0.22" />
         <entry key="..\:/Android studio projects/MemeBerry/app/src/main/res/layout/fragment_profile.xml" value="0.20104166666666667" />
+        <entry key="app/src/main/res/drawable/loginphone.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/rectangestroke.xml" value="0.137" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.ProfileFragment">
+    tools:context=".profile.ProfileFragment"
+    android:background="@color/black">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -31,7 +32,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:background="@color/black">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profileImage"
@@ -54,10 +55,13 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="20dp"
                         android:ems="10"
+                        android:paddingVertical="10dp"
+                        android:textSize="18sp"
+                        android:background="@drawable/rectangestroke"
                         android:hint="Name"
                         android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
@@ -71,10 +75,13 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
                         android:ems="10"
+                        android:background="@drawable/rectangestroke"
+                        android:paddingVertical="10dp"
+                        android:textSize="18sp"
                         android:hint="User Name"
                         android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -88,10 +95,13 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="20dp"
                         android:ems="10"
+                        android:background="@drawable/rectangestroke"
+                        android:paddingVertical="10dp"
+                        android:textSize="18sp"
                         android:hint="Code"
                         android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/userName" />
@@ -101,10 +111,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:backgroundTint="@color/teal_200"
+                        android:backgroundTint="#f57f17"
                         android:elevation="4dp"
                         android:text="Save Profile"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         app:cornerRadius="20dp"
                         app:layout_constraintEnd_toEndOf="@+id/name2"
                         app:layout_constraintStart_toStartOf="@+id/name2"

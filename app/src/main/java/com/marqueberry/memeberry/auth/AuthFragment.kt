@@ -256,7 +256,7 @@ class AuthFragment : Fragment() {
 
         override fun onTick(millisUntilFinished: Long) {
 
-            resend.text = (millisUntilFinished / 1000).toString() + ""
+            resend.text = (millisUntilFinished / 1000).toString() + "sec"
             println("Timer  : " + millisUntilFinished / 1000)
         }
     }

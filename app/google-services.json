@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "789233877775",
-    "project_id": "meme-berry",
-    "storage_bucket": "meme-berry.appspot.com"
+    "project_number": "45688046676",
+    "project_id": "memeberry-395bc",
+    "storage_bucket": "memeberry-395bc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:789233877775:android:50f2426940432394e8347a",
+        "mobilesdk_app_id": "1:45688046676:android:622aed0ea23b4ea15559c1",
         "android_client_info": {
           "package_name": "com.marqueberry.memeberry"
         }
       },
       "oauth_client": [
         {
-          "client_id": "789233877775-1ue9schob0otgtchrhpauuf626pvvjfv.apps.googleusercontent.com",
+          "client_id": "45688046676-vu6ek6hjn17oko5m3ml8cpkh5ctqq3pd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marqueberry.memeberry",
+            "certificate_hash": "d541df9b40240dc9e7ce00327467b6baffc5523b"
+          }
+        },
+        {
+          "client_id": "45688046676-qr63sp7c004ihr6ulfemr59h79gegqi0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBAI3ajLwrAY5p-78AwfZ6EN-bZNU8YTQE"
+          "current_key": "AIzaSyBvltaA8x_0zSa7zC32HugJmJx0J8uylkw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "789233877775-1ue9schob0otgtchrhpauuf626pvvjfv.apps.googleusercontent.com",
+              "client_id": "45688046676-qr63sp7c004ihr6ulfemr59h79gegqi0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
