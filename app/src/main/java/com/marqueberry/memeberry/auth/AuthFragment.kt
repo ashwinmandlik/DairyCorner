@@ -13,16 +13,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
-import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+//import androidx.navigation.fragment.findNavController
+//import com.google.firebase.FirebaseException
+//import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.PhoneAuthCredential
+//import com.google.firebase.auth.PhoneAuthOptions
+//import com.google.firebase.auth.PhoneAuthProvider
+//import com.google.firebase.database.DataSnapshot
+//import com.google.firebase.database.DatabaseError
+//import com.google.firebase.database.FirebaseDatabase
+//import com.google.firebase.database.ValueEventListener
 import com.marqueberry.memeberry.R
 import com.marqueberry.memeberry.databinding.FragmentAuthBinding
 import java.util.concurrent.TimeUnit
@@ -63,10 +63,10 @@ class AuthFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-//        if (firebaseAuth.currentUser != null) {
-//            Navigation.findNavController(requireView())
-//                .navigate(R.id.action_authFragment_to_homeFragment)
-//        }
+        if (firebaseAuth.currentUser != null) {
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_authFragment_to_home_nav)
+        }
 
         binding.scrollViewPhoneAuth.visibility = View.VISIBLE
         binding.ScrollViewOTP.visibility = View.GONE
@@ -203,7 +203,7 @@ class AuthFragment : Fragment() {
             .addOnSuccessListener {
                 progressDialog.dismiss()
                 val phone = firebaseAuth.currentUser!!.phoneNumber
-                Toast.makeText(context, "Loggin with as $phone", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Logged in as $phone", Toast.LENGTH_SHORT).show()
                 timer.cancel()
 
                 var ref = FirebaseDatabase.getInstance().getReference("userProfileData")
@@ -211,17 +211,17 @@ class AuthFragment : Fragment() {
                 ref.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
-                            Toast.makeText(context, "$phone exists", Toast.LENGTH_SHORT).show()
-
-                            Navigation.findNavController(view!!).navigate(R.id.profileFragment)
+//                            Toast.makeText(context, "$phone exists", Toast.LENGTH_SHORT).show()
+//                            Navigation.findNavController(view!!).navigate(R.id.homeFeed)
 //                                    .actionAuthFragmentToUserProfileFragment(
 //                                    phoneCurrentUser
 //                                )
 //                            findNavController().navigate(action)
+
                         } else {
                             Toast.makeText(context, "$phone not exists", Toast.LENGTH_SHORT).show()
 //                            val action =
-//                                AuthFragmentDirections.actionAuthFragmentToUpdateProfileFragment(
+//                                AuthFragmentDirections.action_authFragment_to_profileFragment(
 //                                    phoneCurrentUser
 //                                )
 //                            findNavController().navigate(action)
