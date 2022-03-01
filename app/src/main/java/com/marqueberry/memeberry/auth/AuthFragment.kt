@@ -13,16 +13,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.Navigation
-//import androidx.navigation.fragment.findNavController
-//import com.google.firebase.FirebaseException
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.auth.PhoneAuthCredential
-//import com.google.firebase.auth.PhoneAuthOptions
-//import com.google.firebase.auth.PhoneAuthProvider
-//import com.google.firebase.database.DataSnapshot
-//import com.google.firebase.database.DatabaseError
-//import com.google.firebase.database.FirebaseDatabase
-//import com.google.firebase.database.ValueEventListener
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.marqueberry.memeberry.R
 import com.marqueberry.memeberry.databinding.FragmentAuthBinding
 import java.util.concurrent.TimeUnit
@@ -205,36 +205,37 @@ class AuthFragment : Fragment() {
                 val phone = firebaseAuth.currentUser!!.phoneNumber
                 Toast.makeText(context, "Logged in as $phone", Toast.LENGTH_SHORT).show()
                 timer.cancel()
+                Navigation.findNavController(requireView()).navigate(R.id.profileFragment)
 
-                var ref = FirebaseDatabase.getInstance().getReference("userProfileData")
-                    .child(phoneCurrentUser)
-                ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.exists()) {
-//                            Toast.makeText(context, "$phone exists", Toast.LENGTH_SHORT).show()
-//                            Navigation.findNavController(view!!).navigate(R.id.homeFeed)
-//                                    .actionAuthFragmentToUserProfileFragment(
-//                                    phoneCurrentUser
-//                                )
-//                            findNavController().navigate(action)
-
-                        } else {
-                            Toast.makeText(context, "$phone not exists", Toast.LENGTH_SHORT).show()
-//                            val action =
-//                                AuthFragmentDirections.action_authFragment_to_profileFragment(
-//                                    phoneCurrentUser
-//                                )
-//                            findNavController().navigate(action)
-
-                            Navigation.findNavController(view!!).navigate(R.id.authFragment)
-
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(context, "Error occured!", Toast.LENGTH_SHORT).show()
-                    }
-                })
+//                var ref = FirebaseDatabase.getInstance().getReference("userProfileData")
+//                    .child(phoneCurrentUser)
+//                ref.addListenerForSingleValueEvent(object : ValueEventListener {
+//                    override fun onDataChange(snapshot: DataSnapshot) {
+//                        if (snapshot.exists()) {
+////                            Toast.makeText(context, "$phone exists", Toast.LENGTH_SHORT).show()
+////                            Navigation.findNavController(view!!).navigate(R.id.homeFeed)
+////                                    .actionAuthFragmentToUserProfileFragment(
+////                                    phoneCurrentUser
+////                                )
+////                            findNavController().navigate(action)
+//
+//                        } else {
+//                            Toast.makeText(context, "$phone not exists", Toast.LENGTH_SHORT).show()
+////                            val action =
+////                                AuthFragmentDirections.action_authFragment_to_profileFragment(
+////                                    phoneCurrentUser
+////                                )
+////                            findNavController().navigate(action)
+//
+//                            Navigation.findNavController(view!!).navigate(R.id.authFragment)
+//
+//                        }
+//                    }
+//
+//                    override fun onCancelled(error: DatabaseError) {
+//                        Toast.makeText(context, "Error occured!", Toast.LENGTH_SHORT).show()
+//                    }
+//                })
 
 
             }

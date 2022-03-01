@@ -106,11 +106,42 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
+                    <RadioGroup
+                        android:id="@+id/gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="@+id/name2"
+                        app:layout_constraintStart_toStartOf="@+id/name2"
+                        app:layout_constraintTop_toBottomOf="@+id/name2">
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/white"
+                            android:checked="true"
+                            android:text="Male"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/white"
+                            android:text="Female"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+
+
                     <Button
                         android:id="@+id/saveProfile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="16dp"
                         android:backgroundTint="#f57f17"
                         android:elevation="4dp"
                         android:text="Save Profile"
@@ -118,7 +149,7 @@
                         app:cornerRadius="20dp"
                         app:layout_constraintEnd_toEndOf="@+id/name2"
                         app:layout_constraintStart_toStartOf="@+id/name2"
-                        app:layout_constraintTop_toBottomOf="@+id/name2" />
+                        app:layout_constraintTop_toBottomOf="@+id/gender" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>

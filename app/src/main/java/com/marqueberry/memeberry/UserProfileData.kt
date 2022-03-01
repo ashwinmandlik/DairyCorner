@@ -7,5 +7,6 @@ data class UserProfileData(
     val UserName: String,
     val PhoneNumber: String,
     val code: String,
+    val gender: String,
     val ProfileImageUrl: String? = null,
 )
