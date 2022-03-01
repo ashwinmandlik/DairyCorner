@@ -2,10 +2,12 @@ package com.marqueberry.memeberry.profile
 
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +17,22 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import com.marqueberry.memeberry.R
 import com.marqueberry.memeberry.UserProfileData
 import com.marqueberry.memeberry.databinding.FragmentProfileBinding
+import org.w3c.dom.Document
 import java.util.*
 
 class ProfileFragment : Fragment() {
@@ -36,7 +46,8 @@ class ProfileFragment : Fragment() {
     private var mDateSetListener: DatePickerDialog.OnDateSetListener? = null
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var list: ArrayList<UserProfileData>
+    private var userNameData: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +64,7 @@ class ProfileFragment : Fragment() {
         progressDialog = ProgressDialog(context)
         progressDialog.setMessage("PleaseWait")
         progressDialog.setCanceledOnTouchOutside(false)
-
+        list = arrayListOf<UserProfileData>()
 
         //Pick images
         binding.profileImage.setOnClickListener {
@@ -66,7 +77,6 @@ class ProfileFragment : Fragment() {
         binding.saveProfile.setOnClickListener {
 
             if (selectedProfileUri != null) {
-
                 uploadImageToFirebaseStorage()
             } else {
                 saveUserProfileData()
@@ -91,7 +101,7 @@ class ProfileFragment : Fragment() {
             binding.userName.requestFocus()
             return
         }
-        if(username.length > 32){
+        if (username.length > 32) {
             progressDialog.dismiss()
             binding.userName.error = "UserName should be less than 32 character"
             binding.userName.requestFocus()
@@ -121,42 +131,103 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun saveUserProfileData(ProfileImageUrl: String) {
+    private fun saveUserProfileData() {
         val fullName = binding.name.editableText.toString()
         val username = binding.userName.editableText.toString()
         val code = binding.name2.editableText.toString()
+        val radio: RadioButton? = view?.findViewById(binding.gender.checkedRadioButtonId)
+        val gender = "${radio?.text}"
+        if (username.length < 4) {
+            progressDialog.dismiss()
+            binding.userName.error = "UserName should be at least 4 character"
+            binding.userName.requestFocus()
+            return
+        }
+        if (TextUtils.isEmpty(code)) {
+            progressDialog.dismiss()
+            binding.name2.error = "Enter Code"
+            binding.name2.requestFocus()
+            return
+        }
 
-        val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
-        val ref =
-            FirebaseDatabase.getInstance().getReference("userProfileData")
-
-        val user = UserProfileData(
-            fullName,
-            username,
-            users.phoneNumber!!,
-            code,
-            ProfileImageUrl
-        )
-
-        ref.child(user.PhoneNumber).setValue(user)
+        FirebaseFirestore.getInstance().collection("Users").whereEqualTo("userName", username).get()
             .addOnSuccessListener {
-                progressDialog.dismiss()
-                Toast.makeText(context, "Upload Data Successfully", Toast.LENGTH_LONG).show()
-//                val action =
-//                    UpdateProfileFragmentDirections.actionUpdateProfileFragmentToUserProfileFragment(
-//                        user.PhoneNumber
-//                    )
-//                findNavController().navigate(action)
-
+                for (documentSnapshort: QueryDocumentSnapshot in it) {
+                    if (documentSnapshort.exists()) {
+                        Log.d("data", "Username Exists")
+                        userNameData = true
+                    } else {
+                        Log.d("data", "Username Not Exists")
+                        userNameData = false
+                    }
+                }
             }
+
+        if (!userNameData) {
+            progressDialog.dismiss()
+            binding.userName.error = "User Name Already Exists"
+            binding.userName.requestFocus()
+            userNameData = false
+            return
+        }
+        if (userNameData) {
+
+            val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
+            val user = UserProfileData(
+                fullName,
+                username,
+                gender,
+                users.phoneNumber!!,
+                code,
+                null
+            )
+
+            FirebaseFirestore.getInstance().collection("Users").add(user).addOnCompleteListener {
+                Toast.makeText(context, "Insert Song Successfully", Toast.LENGTH_SHORT).show()
+                if (progressDialog.isShowing) progressDialog.dismiss()
+                Navigation.findNavController(requireView()).navigate(R.id.home_nav)
+            }.addOnFailureListener {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                if (progressDialog.isShowing) progressDialog.dismiss()
+            }
+        }
+
+//        ref.child(user.PhoneNumber).setValue(user)
+//            .addOnSuccessListener {
+//                progressDialog.dismiss()
+//                Toast.makeText(context, "Upload Data Successfully", Toast.LENGTH_LONG).show()
+////                val action =
+////                    UpdateProfileFragmentDirections.actionUpdateProfileFragmentToUserProfileFragment(
+////                        user.PhoneNumber
+////                    )
+////                findNavController().navigate(action)
+//
+//            }
 
     }
 
-    private fun saveUserProfileData() {
+    private fun fetchProfiles(username: String) {
+        FirebaseFirestore.getInstance().collection("Users").whereEqualTo("userName", username).get()
+            .addOnSuccessListener {
+                for (documentSnapshort: QueryDocumentSnapshot in it) {
+                    if (documentSnapshort.exists()) {
+                        Log.d("data", "Username Exists")
+                        userNameData = true
+                    } else {
+                        Log.d("data", "Username Not Exists")
+                        userNameData = false
+                    }
+                }
+            }
+    }
+
+    private fun saveUserProfileData(ProfileImageUrl: String) {
 
         val fullName = binding.name.editableText.toString()
         val username = binding.userName.editableText.toString()
         val code = binding.name2.editableText.toString()
+        val radio: RadioButton? = view?.findViewById(binding.gender.checkedRadioButtonId)
+        val gender = "${radio?.text}"
 
         if (username.length < 4) {
             progressDialog.dismiss()
@@ -170,36 +241,85 @@ class ProfileFragment : Fragment() {
             binding.name2.requestFocus()
             return
         }
-        val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
-        val ref =
-            FirebaseDatabase.getInstance().getReference("userProfileData")
+        //     fetchProfiles(username)
 
-        if (valid) {
-            progressDialog.show()
+
+        FirebaseFirestore.getInstance().collection("Users").whereEqualTo("userName", username).get()
+            .addOnSuccessListener {
+                for (documentSnapshort: QueryDocumentSnapshot in it) {
+                    if (documentSnapshort.exists()) {
+                        Log.d("data", "Username Exists")
+                        userNameData = true
+                    } else {
+                        Log.d("data", "Username Not Exists")
+                        userNameData = false
+                    }
+                }
+            }
+
+        if (!userNameData) {
+            progressDialog.dismiss()
+            binding.userName.error = "User Name Already Exists"
+            binding.userName.requestFocus()
+            userNameData = false
+            return
+        }
+
+
+        if (userNameData) {
+            val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
             val user = UserProfileData(
                 fullName,
                 username,
                 users.phoneNumber!!,
                 code,
-                null
+                gender,
+                ProfileImageUrl
             )
 
-            ref.child(user.PhoneNumber).setValue(user)
-                .addOnSuccessListener {
-                    progressDialog.dismiss()
-                    Toast.makeText(context, "Data Upload SuccessFully", Toast.LENGTH_LONG).show()
-//                    val action =
-//                        UpdateProfileFragmentDirections.actionUpdateProfileFragmentToUserProfileFragment(
-//                            user.PhoneNumber
-//                        )
-//                    findNavController().navigate(action)
-          //          Navigation.findNavController(requireView()).navigate(R.id.authFragment)
 
-                }
-        } else {
-            progressDialog.dismiss()
-            Toast.makeText(context, R.string.dataValid, Toast.LENGTH_LONG).show()
+            FirebaseFirestore.getInstance().collection("Users").add(user).addOnCompleteListener {
+                Toast.makeText(context, "Insert Song Successfully", Toast.LENGTH_SHORT).show()
+                if (progressDialog.isShowing) progressDialog.dismiss()
+            }.addOnFailureListener {
+                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                if (progressDialog.isShowing) progressDialog.dismiss()
+            }
         }
+
+//        val ref =
+//            FirebaseDatabase.getInstance().getReference("userProfileData")
+//
+//
+//
+//        if (valid) {
+//            progressDialog.show()
+//            val user = UserProfileData(
+//                fullName,
+//                username,
+//                users.phoneNumber!!,
+//                code,
+//                null
+//            )
+//
+//            ref.child(user.PhoneNumber).setValue(user)
+//                .addOnSuccessListener {
+//                    progressDialog.dismiss()
+//                    Toast.makeText(context, "Data Upload SuccessFully", Toast.LENGTH_LONG).show()
+////                    val action =
+////                        UpdateProfileFragmentDirections.actionUpdateProfileFragmentToUserProfileFragment(
+////                            user.PhoneNumber
+////                        )
+////                    findNavController().navigate(action)
+//          //          Navigation.findNavController(requireView()).navigate(R.id.authFragment)
+//
+//                }
+//        } else {
+//            progressDialog.dismiss()
+//            Toast.makeText(context, R.string.dataValid, Toast.LENGTH_LONG).show()
+//        }
+
+
     }
 
     var selectedProfileUri: Uri? = null
