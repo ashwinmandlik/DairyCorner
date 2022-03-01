@@ -1,5 +1,6 @@
 package com.marqueberry.memeberry.auth
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -23,7 +24,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 import com.marqueberry.memeberry.R
+import com.marqueberry.memeberry.cache.OfflineStorage.getProfileData
 import com.marqueberry.memeberry.databinding.FragmentAuthBinding
 import java.util.concurrent.TimeUnit
 
@@ -38,6 +41,7 @@ class AuthFragment : Fragment() {
     lateinit var resend: TextView
     lateinit var fullNumber: String
     private var forceResendingToken: PhoneAuthProvider.ForceResendingToken? = null
+    private lateinit var firestore: FirebaseFirestore
 
     private var mCollBacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks? = null
     private var mVerificationId: String? = null
@@ -63,9 +67,14 @@ class AuthFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        if (firebaseAuth.currentUser != null) {
+        if (firebaseAuth.currentUser != null && context!=null) {
+
+            if(getProfileData(requireContext())){
             Navigation.findNavController(requireView())
-                .navigate(R.id.action_authFragment_to_home_nav)
+                .navigate(R.id.action_authFragment_to_home_nav)}
+            else{
+
+            }
         }
 
         binding.scrollViewPhoneAuth.visibility = View.VISIBLE
@@ -175,7 +184,6 @@ class AuthFragment : Fragment() {
         progressDialog.setMessage("Resending Code...")
         progressDialog.show()
 
-
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)
             .setPhoneNumber(fullNumber)
             .setTimeout(60L, TimeUnit.SECONDS)
@@ -205,27 +213,26 @@ class AuthFragment : Fragment() {
                 val phone = firebaseAuth.currentUser!!.phoneNumber
                 Toast.makeText(context, "Logged in as $phone", Toast.LENGTH_SHORT).show()
                 timer.cancel()
-                Navigation.findNavController(requireView()).navigate(R.id.profileFragment)
 
+                if (phone != null) {
+                    checkIfUserIsExisting(phone)
+                }
+                //Navigation.findNavController(requireView()).navigate(R.id.profileFragment)
+//-------------
 //                var ref = FirebaseDatabase.getInstance().getReference("userProfileData")
 //                    .child(phoneCurrentUser)
 //                ref.addListenerForSingleValueEvent(object : ValueEventListener {
+//                    @SuppressLint("ResourceType")
 //                    override fun onDataChange(snapshot: DataSnapshot) {
 //                        if (snapshot.exists()) {
-////                            Toast.makeText(context, "$phone exists", Toast.LENGTH_SHORT).show()
-////                            Navigation.findNavController(view!!).navigate(R.id.homeFeed)
-////                                    .actionAuthFragmentToUserProfileFragment(
-////                                    phoneCurrentUser
-////                                )
-////                            findNavController().navigate(action)
+//                            Toast.makeText(context, "$phone exists", Toast.LENGTH_SHORT).show()
+//                            Navigation.findNavController(view!!).navigate(R.id.homeFeed)
+//                            findNavController().navigate(R.navigation.home_nav)
 //
 //                        } else {
 //                            Toast.makeText(context, "$phone not exists", Toast.LENGTH_SHORT).show()
-////                            val action =
-////                                AuthFragmentDirections.action_authFragment_to_profileFragment(
-////                                    phoneCurrentUser
-////                                )
-////                            findNavController().navigate(action)
+//
+//                                findNavController().navigate(R.id.profileFragment)
 //
 //                            Navigation.findNavController(view!!).navigate(R.id.authFragment)
 //
@@ -238,6 +245,9 @@ class AuthFragment : Fragment() {
 //                })
 
 
+                // -----------------------
+
+
             }
             .addOnFailureListener { e ->
                 progressDialog.dismiss()
@@ -245,6 +255,22 @@ class AuthFragment : Fragment() {
                 binding.otpView.requestFocus()
             }
     }
+
+    private fun checkIfUserIsExisting(s:String) {
+        firestore= FirebaseFirestore.getInstance()
+
+        firestore.collection("Users").document(s).get()
+            .addOnSuccessListener {
+                if (it.data==null) {
+                    findNavController().navigate(R.id.action_authFragment_to_profileFragment)
+                } else {
+                    findNavController().navigate(R.id.action_authFragment_to_home_nav)
+                }
+
+
+            }
+    }
+
 
     inner class MyCounter(millisInFuture: Long, countDownInterval: Long) :
         CountDownTimer(millisInFuture, countDownInterval) {

@@ -31,6 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import com.marqueberry.memeberry.R
 import com.marqueberry.memeberry.UserProfileData
+import com.marqueberry.memeberry.cache.OfflineStorage.setProfileData
 import com.marqueberry.memeberry.databinding.FragmentProfileBinding
 import org.w3c.dom.Document
 import java.util.*
@@ -163,29 +164,30 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-        if (!userNameData) {
+        if (userNameData) {
             progressDialog.dismiss()
             binding.userName.error = "User Name Already Exists"
             binding.userName.requestFocus()
-            userNameData = false
+           // userNameData = false
             return
         }
-        if (userNameData) {
+        if (!userNameData) {
 
             val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
             val user = UserProfileData(
-                fullName,
-                username,
-                gender,
-                users.phoneNumber!!,
-                code,
+                fullName = fullName,
+                UserName=username,
+                PhoneNumber = users.phoneNumber!!,
+                code=code,
+                gender=gender,
                 null
             )
 
-            FirebaseFirestore.getInstance().collection("Users").add(user).addOnCompleteListener {
-                Toast.makeText(context, "Insert Song Successfully", Toast.LENGTH_SHORT).show()
+            FirebaseFirestore.getInstance().collection("Users").document(users.phoneNumber!!).set(user).addOnCompleteListener {
+                Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
                 if (progressDialog.isShowing) progressDialog.dismiss()
                 Navigation.findNavController(requireView()).navigate(R.id.home_nav)
+                setProfile(true)
             }.addOnFailureListener {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 if (progressDialog.isShowing) progressDialog.dismiss()
@@ -203,6 +205,11 @@ class ProfileFragment : Fragment() {
 ////                findNavController().navigate(action)
 //
 //            }
+
+    }
+
+    private fun setProfile(b: Boolean) {
+        setProfileData(requireContext(),b)
 
     }
 
@@ -257,30 +264,32 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-        if (!userNameData) {
+        if (userNameData) {
             progressDialog.dismiss()
             binding.userName.error = "User Name Already Exists"
             binding.userName.requestFocus()
-            userNameData = false
+            //userNameData = false
             return
         }
 
 
-        if (userNameData) {
+        if (!userNameData) {
             val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
             val user = UserProfileData(
-                fullName,
-                username,
-                users.phoneNumber!!,
-                code,
-                gender,
-                ProfileImageUrl
+                fullName = fullName,
+                UserName=username,
+                PhoneNumber = users.phoneNumber!!,
+                code=code,
+                gender=gender,
+                ProfileImageUrl=ProfileImageUrl
             )
 
 
-            FirebaseFirestore.getInstance().collection("Users").add(user).addOnCompleteListener {
-                Toast.makeText(context, "Insert Song Successfully", Toast.LENGTH_SHORT).show()
+            FirebaseFirestore.getInstance().collection("Users").document(users.phoneNumber!!).set(user).addOnCompleteListener {
+                Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
                 if (progressDialog.isShowing) progressDialog.dismiss()
+                Navigation.findNavController(requireView()).navigate(R.id.home_nav)
+                setProfile(true)
             }.addOnFailureListener {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 if (progressDialog.isShowing) progressDialog.dismiss()
