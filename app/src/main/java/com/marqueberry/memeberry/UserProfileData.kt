@@ -4,9 +4,9 @@ package com.marqueberry.memeberry
 
 data class UserProfileData(
     val fullName: String,
-    val UserName: String,
-    val PhoneNumber: String,
+    val userName: String,
+    val phoneNumber: String,
     val code: String,
     val gender: String,
-    val ProfileImageUrl: String? = null,
+    val profileImageUrl: String? = null,
 )

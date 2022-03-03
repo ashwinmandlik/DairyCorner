@@ -26,7 +26,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.marqueberry.memeberry.R
+import com.marqueberry.memeberry.cache.OfflineStorage
 import com.marqueberry.memeberry.cache.OfflineStorage.getProfileData
+import com.marqueberry.memeberry.cache.OfflineStorage.isUserLoggedIn
 import com.marqueberry.memeberry.databinding.FragmentAuthBinding
 import java.util.concurrent.TimeUnit
 
@@ -64,15 +66,17 @@ class AuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (isUserLoggedIn) {
+            findNavController().navigate(R.id.action_authFragment_to_homeActivity)
+        } else{
+            firebaseAuth = FirebaseAuth.getInstance()
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        if (firebaseAuth.currentUser != null && context != null) {
 
-        if (firebaseAuth.currentUser != null && context!=null) {
-
-            if(getProfileData(requireContext())){
-            Navigation.findNavController(requireView())
-                .navigate(R.id.action_authFragment_to_home_nav)}
-            else{
+            if (getProfileData(requireContext())) {
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_authFragment_to_homeActivity)
+            } else {
 
             }
         }
@@ -162,6 +166,7 @@ class AuthFragment : Fragment() {
             }
         }
     }
+}
 
     private fun startPhoneNumberVerification(fullNumber: String) {
         progressDialog.setMessage("Verifying Phone Number...")
@@ -264,7 +269,9 @@ class AuthFragment : Fragment() {
                 if (it.data==null) {
                     findNavController().navigate(R.id.action_authFragment_to_profileFragment)
                 } else {
-                    findNavController().navigate(R.id.action_authFragment_to_home_nav)
+                    OfflineStorage.setProfileData(requireContext(),true)
+                    findNavController().navigate(R.id.action_authFragment_to_homeActivity)
+
                 }
 
 

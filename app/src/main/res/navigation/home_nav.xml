@@ -10,4 +10,24 @@
         android:name="com.marqueberry.memeberry.HomeFeed"
         android:label="fragment_home_feed"
         tools:layout="@layout/fragment_home_feed" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.marqueberry.memeberry.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/campaignsFragment"
+        android:name="com.marqueberry.memeberry.CampaignsFragment"
+        android:label="fragment_campaigns"
+        tools:layout="@layout/fragment_campaigns" />
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.marqueberry.memeberry.ChatsFragment"
+        android:label="fragment_chats"
+        tools:layout="@layout/fragment_chats" />
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.marqueberry.memeberry.UploadFragment"
+        android:label="fragment_upload"
+        tools:layout="@layout/fragment_upload" />
 </navigation>

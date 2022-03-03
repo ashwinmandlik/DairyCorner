@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@id/homeFeed"
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home_24"/>
+
+    <item android:id="@id/campaignsFragment"
+        android:title="Campaigns"
+        android:icon="@drawable/ic_baseline_campaign_24"/>
+
+    <item android:id="@id/uploadFragment"
+        android:title="Add"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"/>
+
+    <item android:id="@id/chatsFragment"
+        android:title="Chats"
+        android:icon="@drawable/ic_baseline_chat_24"/>
+
+
+    <item android:id="@id/userProfileFragment"
+        android:title="Profile"
+        android:icon="@drawable/ic_round_person_24"/>
+
+
+</menu>

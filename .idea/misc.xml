@@ -10,11 +10,26 @@
         <entry key="..\:/Users/LEELADHER/AndroidStudioProjects/memeberry/app/src/main/res/layout/fragment_auth.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/LEELADHER/AndroidStudioProjects/memeberry/app/src/main/res/layout/fragment_home_feed.xml" value="0.1" />
         <entry key="..\:/Users/LEELADHER/AndroidStudioProjects/memeberry/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/bottomnavbg.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.115" />
+        <entry key="app/src/main/res/drawable/ic_baseline_campaign_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.115" />
+        <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.118" />
+        <entry key="app/src/main/res/drawable/ic_round_person_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/loginphone.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/rectangestroke.xml" value="0.137" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/drawable/selector.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.220458984375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_campaigns.xml" value="0.11980749746707194" />
+        <entry key="app/src/main/res/layout/fragment_chats.xml" value="0.11980749746707194" />
+        <entry key="app/src/main/res/layout/fragment_home_feed.xml" value="0.31220041910807295" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2979583740234375" />
+        <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/layout/fragment_upload.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.11980749746707194" />
+        <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.1" />
       </map>
     </option>
   </component>

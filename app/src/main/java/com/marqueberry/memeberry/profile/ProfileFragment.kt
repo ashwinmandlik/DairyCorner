@@ -17,6 +17,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -115,11 +116,11 @@ class ProfileFragment : Fragment() {
             val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
             ref.putFile(selectedProfileUri!!)
                 .addOnSuccessListener {
-                    Toast.makeText(
-                        context,
-                        "Upload Success",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        context,
+//                        "Upload Success",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                     //Get Download Url
                     ref.downloadUrl.addOnSuccessListener {
                         //Save Data into Firebase Database
@@ -150,49 +151,57 @@ class ProfileFragment : Fragment() {
             binding.name2.requestFocus()
             return
         }
+        Log.i(TAG, "saveUserProfileData: " + fullName + "  username= " + username)
 
         FirebaseFirestore.getInstance().collection("Users").whereEqualTo("userName", username).get()
             .addOnSuccessListener {
-                for (documentSnapshort: QueryDocumentSnapshot in it) {
-                    if (documentSnapshort.exists()) {
-                        Log.d("data", "Username Exists")
-                        userNameData = true
-                    } else {
-                        Log.d("data", "Username Not Exists")
-                        userNameData = false
-                    }
+//                for (documentSnapshort: QueryDocumentSnapshot in it) {
+                Log.i("ashwinscheck", "saveUserProfileData: x ")
+
+                if (!it.documents.isEmpty()) {
+                    Log.d("data", "Username Exists")
+                    userNameData = true
+                } else {
+                    Log.d("data", "Username Not Exists")
+                    userNameData = false
                 }
+
+                if (!userNameData) {
+
+                    val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
+                    val user = UserProfileData(
+                        fullName = fullName,
+                        userName = username,
+                        phoneNumber = users.phoneNumber!!,
+                        code = code,
+                        gender = gender,
+                        null
+                    )
+
+                    FirebaseFirestore.getInstance().collection("Users")
+                        .document(users.phoneNumber!!).set(user).addOnCompleteListener {
+                            Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
+                            setProfile(true)
+
+                            //Navigation.findNavController(requireView()).navigate(R.id.home_nav)
+                            findNavController().navigate(R.id.action_profileFragment_to_homeActivity)
+
+                        }.addOnFailureListener {
+                            Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
+                        }
+                } else {
+                    progressDialog.dismiss()
+                    binding.userName.error = "User Name Already Exists"
+                    binding.userName.requestFocus()
+
+                }
+                userNameData = false
+
+//                }
             }
 
-        if (userNameData) {
-            progressDialog.dismiss()
-            binding.userName.error = "User Name Already Exists"
-            binding.userName.requestFocus()
-           // userNameData = false
-            return
-        }
-        if (!userNameData) {
-
-            val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
-            val user = UserProfileData(
-                fullName = fullName,
-                UserName=username,
-                PhoneNumber = users.phoneNumber!!,
-                code=code,
-                gender=gender,
-                null
-            )
-
-            FirebaseFirestore.getInstance().collection("Users").document(users.phoneNumber!!).set(user).addOnCompleteListener {
-                Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
-                if (progressDialog.isShowing) progressDialog.dismiss()
-                Navigation.findNavController(requireView()).navigate(R.id.home_nav)
-                setProfile(true)
-            }.addOnFailureListener {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-                if (progressDialog.isShowing) progressDialog.dismiss()
-            }
-        }
 
 //        ref.child(user.PhoneNumber).setValue(user)
 //            .addOnSuccessListener {
@@ -209,7 +218,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setProfile(b: Boolean) {
-        setProfileData(requireContext(),b)
+        setProfileData(requireContext(), b)
 
     }
 
@@ -228,10 +237,10 @@ class ProfileFragment : Fragment() {
             }
     }
 
-    private fun saveUserProfileData(ProfileImageUrl: String) {
+    private fun saveUserProfileData(profileImageUrl: String) {
 
         val fullName = binding.name.editableText.toString()
-        val username = binding.userName.editableText.toString()
+        val username = binding.userName.text.toString()
         val code = binding.name2.editableText.toString()
         val radio: RadioButton? = view?.findViewById(binding.gender.checkedRadioButtonId)
         val gender = "${radio?.text}"
@@ -253,48 +262,65 @@ class ProfileFragment : Fragment() {
 
         FirebaseFirestore.getInstance().collection("Users").whereEqualTo("userName", username).get()
             .addOnSuccessListener {
-                for (documentSnapshort: QueryDocumentSnapshot in it) {
-                    if (documentSnapshort.exists()) {
-                        Log.d("data", "Username Exists")
-                        userNameData = true
-                    } else {
-                        Log.d("data", "Username Not Exists")
-                        userNameData = false
-                    }
+                //for (documentSnapshort: QueryDocumentSnapshot in it) {
+                if (!it.documents.isEmpty()) {
+                    Log.d("data", "Username Exists")
+                    userNameData = true
+                } else {
+                    Log.d("data", "Username Not Exists")
+                    userNameData = false
                 }
+
+//                        ...
+//                        .addOnSuccessListener {
+////                for (documentSnapshort: QueryDocumentSnapshot in it) {
+//                            Log.i("ashwinscheck", "saveUserProfileData: x ")
+//
+//                            if (!it.documents.isEmpty()) {
+//                                Log.d("data", "Username Exists")
+//                                userNameData = true
+//                            } else {
+//                                Log.d("data", "Username Not Exists")
+//                                userNameData = false
+//                            }
+//                        ...
+
+
+                if (!userNameData) {
+                    val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
+                    val user = UserProfileData(
+                        fullName = fullName,
+                        userName = username,
+                        phoneNumber = users.phoneNumber!!,
+                        code = code,
+                        gender = gender,
+                        profileImageUrl = profileImageUrl
+                    )
+
+
+                    FirebaseFirestore.getInstance().collection("Users")
+                        .document(users.phoneNumber!!).set(user).addOnCompleteListener {
+                            Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
+                            //Navigation.findNavController(requireView()).navigate(R.id.home_nav)
+                            setProfile(true)
+
+                            findNavController().navigate(R.id.action_profileFragment_to_homeActivity)
+                        }.addOnFailureListener {
+                            Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                            if (progressDialog.isShowing) progressDialog.dismiss()
+                        }
+                } else {
+                    progressDialog.dismiss()
+                    binding.userName.error = "User Name Already Exists"
+                    binding.userName.requestFocus()
+
+                }
+                userNameData = false
+
             }
+    }
 
-        if (userNameData) {
-            progressDialog.dismiss()
-            binding.userName.error = "User Name Already Exists"
-            binding.userName.requestFocus()
-            //userNameData = false
-            return
-        }
-
-
-        if (!userNameData) {
-            val users = FirebaseAuth.getInstance().currentUser as FirebaseUser
-            val user = UserProfileData(
-                fullName = fullName,
-                UserName=username,
-                PhoneNumber = users.phoneNumber!!,
-                code=code,
-                gender=gender,
-                ProfileImageUrl=ProfileImageUrl
-            )
-
-
-            FirebaseFirestore.getInstance().collection("Users").document(users.phoneNumber!!).set(user).addOnCompleteListener {
-                Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
-                if (progressDialog.isShowing) progressDialog.dismiss()
-                Navigation.findNavController(requireView()).navigate(R.id.home_nav)
-                setProfile(true)
-            }.addOnFailureListener {
-                Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-                if (progressDialog.isShowing) progressDialog.dismiss()
-            }
-        }
 
 //        val ref =
 //            FirebaseDatabase.getInstance().getReference("userProfileData")
@@ -329,33 +355,37 @@ class ProfileFragment : Fragment() {
 //        }
 
 
+
+
+
+var selectedProfileUri: Uri? = null
+
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == 82 && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+        selectedProfileUri = data.data
+        binding.profileImage.setImageURI(selectedProfileUri)
     }
+}
 
-    var selectedProfileUri: Uri? = null
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 82 && resultCode == AppCompatActivity.RESULT_OK && data != null) {
-            selectedProfileUri = data.data
-            binding.profileImage.setImageURI(selectedProfileUri)
-        }
+private fun checkField(textField: EditText): Boolean {
+    if (textField.text.toString().isEmpty()) {
+        textField.error = "Error"
+        textField.requestFocus()
+        valid = false
+    } else {
+        valid = true
     }
+    return valid
+}
+
+override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+}
 
 
-    private fun checkField(textField: EditText): Boolean {
-        if (textField.text.toString().isEmpty()) {
-            textField.error = "Error"
-            textField.requestFocus()
-            valid = false
-        } else {
-            valid = true
-        }
-        return valid
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }
