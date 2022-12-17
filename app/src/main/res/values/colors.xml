@@ -8,4 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellowNoti">#F57F17</color>
+    <color name="colorPrimary">#78909c</color>
+    <color name="colorPrimaryDark">#263238</color>
+    <color name="colorAccent">#89bdea</color>
+
+    <color name="darkColorPrimary">#b71c1c</color>
+    <color name="darkColorPrimaryDark">#212121</color>
+    <color name="darkColorAccent">#ffea00</color>
 </resources>

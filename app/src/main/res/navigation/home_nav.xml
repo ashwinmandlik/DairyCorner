@@ -7,27 +7,41 @@
 
     <fragment
         android:id="@+id/homeFeed"
-        android:name="com.marqueberry.memeberry.HomeFeed"
+        android:name="com.marqueberry.memeberrieticket.HomeFeed"
         android:label="fragment_home_feed"
-        tools:layout="@layout/fragment_home_feed" />
+        tools:layout="@layout/fragment_home_feed" >
+        <action
+            android:id="@+id/action_homeFeed_to_bookingFragment"
+            app:destination="@id/bookingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="com.marqueberry.memeberry.UserProfileFragment"
+        android:name="com.marqueberry.memeberrieticket.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
     <fragment
         android:id="@+id/campaignsFragment"
-        android:name="com.marqueberry.memeberry.CampaignsFragment"
+        android:name="com.marqueberry.memeberrieticket.CampaignsFragment"
         android:label="fragment_campaigns"
         tools:layout="@layout/fragment_campaigns" />
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.marqueberry.memeberry.ChatsFragment"
+        android:name="com.marqueberry.memeberrieticket.ChatsFragment"
         android:label="fragment_chats"
         tools:layout="@layout/fragment_chats" />
     <fragment
         android:id="@+id/uploadFragment"
-        android:name="com.marqueberry.memeberry.UploadFragment"
+        android:name="com.marqueberry.memeberrieticket.UploadFragment"
         android:label="fragment_upload"
         tools:layout="@layout/fragment_upload" />
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.marqueberry.memeberrieticket.BookingFragment"
+        android:label="fragment_booking"
+        tools:layout="@layout/fragment_booking" />
+    <fragment
+        android:id="@+id/history"
+        android:name="com.marqueberry.memeberrieticket.history"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.marqueberry.memeberry
+package com.marqueberry.memeberrieticket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,10 +6,6 @@ import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.marqueberry.memeberry.cache.OfflineStorage.homeFeedBack
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,77 @@
 <resources>
+    <array name="show_timings">
+        <item>9:05 AM</item>
+        <item>1:25 PM</item>
+        <item>4:50 PM</item>
+        <item>8:30 PM</item>
+        <item>12:30 PM</item>
+    </array>
+    <array name="venue">
+        <item>INOX - Khandesh Central</item>
+        <!--
+        <item>Regal Theatre</item>
+        <item>PVR Cinemas</item>
+        <item>Ashoke Talkies</item>
+        <item>Anant Theatre</item>
+-->
+    </array>
     <string name="app_name">Meme Berry</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dataValid">please enter valid data</string>
+    <string name="age_warning">Note: 18+ Age warning</string>
+    <string name="budget_not_available">Budget: N/A</string>
+    <string name="complete_payment_text">Complete Payment</string>
+    <string name="pay_now">Pay now</string>
+    <string name="production_companies">Production Companies</string>
+    <string name="runtime">runtime</string>
+    <string name="homepage">homepage</string>
+    <string name="website">Website:</string>
+    <string name="budget">Budget</string>
+    <string name="votes">Votes</string>
+    <string name="languages">languages</string>
+    <string name="production_countries">Production Countries</string>
+    <string name="release_date">Release Date</string>
+    <string name="adult">adult</string>
+    <string name="overview">Overview</string>
+    <string name="tagline">Tagline</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="popular">Popular</string>
+    <string name="todo">TODO</string>
+    <string name="top_rated">Top rated</string>
+    <string name="now_playing">Now playing</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="select_seats">Select seats</string>
+    <string name="available">Available</string>
+    <string name="selected">Selected</string>
+    <string name="sold_out">Sold out</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="book_now">Book Now</string>
+    <string name="total">Total</string>
+    <string name="no_amount">--</string>
+    <string name="screen_this_way">SCREEN THIS WAY</string>
+    <string name="payment_id">Payment ID</string>
+    <string name="moviename">MovieName</string>
+    <string name="seats">Seats</string>
+    <string name="money_paid">Money Paid</string>
+    <string name="na">NA</string>
+    <string name="theatre">Theatre</string>
+    <string name="booking">Booking</string>
+    <string name="about_us">About Us</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="name">Name</string>
+    <string name="type">Type</string>
+    <string name="calculation">Calculation</string>
+    <string name="trailers">Trailers</string>
+    <string name="tag_line">Tagline:</string>
+    <string name="language">Languages:</string>
+    <string name="ratings">Rating:</string>
+    <string name="budget_amount">Budget: $</string>
+    <string name="movie_duration">Duration:</string>
+    <string name="minutes">minutes</string>
+    <string name="released_on">Released on</string>
+    <string name="location">Location</string>
+    <string name="time">Time</string>
+    <string name="qrcode">qrcode</string>
+    <string name="OAuthClient">460739082574-p2r1qlk6m789le608md2n58mhr905580.apps.googleusercontent.com</string>
+
 </resources>

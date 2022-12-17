@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.marqueberry.memeberry">
+    package="com.marqueberry.memeberrieticket">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MemeBerry">
         <activity
-            android:name=".HomeActivity"
+            android:name="com.marqueberry.memeberrieticket.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.marqueberry.memeberrieticket.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

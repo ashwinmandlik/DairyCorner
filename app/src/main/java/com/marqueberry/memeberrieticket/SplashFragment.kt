@@ -1,4 +1,4 @@
-package com.marqueberry.memeberry
+package com.marqueberry.memeberrieticket
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,15 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import android.content.Context
-import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.firestore.FirebaseFirestore
-import com.marqueberry.memeberry.cache.OfflineStorage
+import com.marqueberry.memeberrieticket.cache.OfflineStorage
 import java.util.*
 import kotlin.properties.Delegates
 

@@ -1,4 +1,4 @@
-package com.marqueberry.memeberry
+package com.marqueberry.memeberrieticket
 
 import org.junit.Test
 

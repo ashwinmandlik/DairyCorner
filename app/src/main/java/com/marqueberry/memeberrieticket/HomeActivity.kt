@@ -1,18 +1,15 @@
-package com.marqueberry.memeberry
+package com.marqueberry.memeberrieticket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.marqueberry.memeberry.cache.OfflineStorage
-import com.marqueberry.memeberry.profile.ProfileFragment
+import com.marqueberry.memeberrieticket.cache.OfflineStorage
+import com.marqueberry.memeberrieticket.profile.ProfileFragment
 
 class HomeActivity : AppCompatActivity() {
    private lateinit var homeFeedFragment:HomeFeed

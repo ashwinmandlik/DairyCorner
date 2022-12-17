@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.marqueberry.memeberry.auth.AuthFragment"
+        android:name="com.marqueberry.memeberrieticket.auth.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.marqueberry.memeberry.profile.ProfileFragment"
+        android:name="com.marqueberry.memeberrieticket.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -29,7 +29,7 @@
     <include app:graph="@navigation/home_nav" />
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.marqueberry.memeberry.SplashFragment"
+        android:name="com.marqueberry.memeberrieticket.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -41,6 +41,6 @@
     </fragment>
     <activity
         android:id="@+id/homeActivity"
-        android:name="com.marqueberry.memeberry.HomeActivity"
+        android:name="com.marqueberry.memeberrieticket.HomeActivity"
         android:label="HomeActivity" />
 </navigation>

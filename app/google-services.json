@@ -1,41 +1,70 @@
 {
   "project_info": {
-    "project_number": "45688046676",
-    "project_id": "memeberry-395bc",
-    "storage_bucket": "memeberry-395bc.appspot.com"
+    "project_number": "387695891798",
+    "project_id": "movieshows-546c7",
+    "storage_bucket": "movieshows-546c7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:45688046676:android:622aed0ea23b4ea15559c1",
+        "mobilesdk_app_id": "1:387695891798:android:e5782d7f8cc9ee698ff2f7",
         "android_client_info": {
-          "package_name": "com.marqueberry.memeberry"
+          "package_name": "com.marqueberry.memeberrieticket"
         }
       },
       "oauth_client": [
         {
-          "client_id": "45688046676-vu6ek6hjn17oko5m3ml8cpkh5ctqq3pd.apps.googleusercontent.com",
+          "client_id": "387695891798-s4vqnglhrqdjbtl2jc5du38n60mk3o7m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.marqueberry.memeberry",
+            "package_name": "com.marqueberry.memeberrieticket",
             "certificate_hash": "d541df9b40240dc9e7ce00327467b6baffc5523b"
           }
         },
         {
-          "client_id": "45688046676-qr63sp7c004ihr6ulfemr59h79gegqi0.apps.googleusercontent.com",
+          "client_id": "387695891798-n7m7q99u01c5stn2iphijgpd8eev4un3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBvltaA8x_0zSa7zC32HugJmJx0J8uylkw"
+          "current_key": "AIzaSyA3fonNzJNKej6hLJEbm17jOSxPUQ4H3ic"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "45688046676-qr63sp7c004ihr6ulfemr59h79gegqi0.apps.googleusercontent.com",
+              "client_id": "387695891798-n7m7q99u01c5stn2iphijgpd8eev4un3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387695891798:android:bf53c17020576c218ff2f7",
+        "android_client_info": {
+          "package_name": "com.marqueberry.memeberry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387695891798-n7m7q99u01c5stn2iphijgpd8eev4un3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3fonNzJNKej6hLJEbm17jOSxPUQ4H3ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387695891798-n7m7q99u01c5stn2iphijgpd8eev4un3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

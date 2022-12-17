@@ -1,6 +1,5 @@
-package com.marqueberry.memeberry.auth
+package com.marqueberry.memeberrieticket.auth
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -20,16 +19,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.marqueberry.memeberry.R
-import com.marqueberry.memeberry.cache.OfflineStorage
-import com.marqueberry.memeberry.cache.OfflineStorage.getProfileData
-import com.marqueberry.memeberry.cache.OfflineStorage.isUserLoggedIn
-import com.marqueberry.memeberry.databinding.FragmentAuthBinding
+import com.marqueberry.memeberrieticket.R
+import com.marqueberry.memeberrieticket.cache.OfflineStorage
+import com.marqueberry.memeberrieticket.cache.OfflineStorage.getProfileData
+import com.marqueberry.memeberrieticket.cache.OfflineStorage.isUserLoggedIn
+import com.marqueberry.memeberrieticket.databinding.FragmentAuthBinding
 import java.util.concurrent.TimeUnit
 
 class AuthFragment : Fragment() {
@@ -217,6 +212,8 @@ class AuthFragment : Fragment() {
                 progressDialog.dismiss()
                 val phone = firebaseAuth.currentUser!!.phoneNumber
                 Toast.makeText(context, "Logged in as $phone", Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_authFragment_to_homeActivity)
                 timer.cancel()
 
                 if (phone != null) {
@@ -271,10 +268,7 @@ class AuthFragment : Fragment() {
                 } else {
                     OfflineStorage.setProfileData(requireContext(),true)
                     findNavController().navigate(R.id.action_authFragment_to_homeActivity)
-
                 }
-
-
             }
     }
 

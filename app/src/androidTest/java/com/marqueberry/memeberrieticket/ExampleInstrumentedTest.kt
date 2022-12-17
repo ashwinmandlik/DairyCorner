@@ -1,4 +1,4 @@
-package com.marqueberry.memeberry
+package com.marqueberry.memeberrieticket
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
